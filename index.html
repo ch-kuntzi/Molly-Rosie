@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molly & Rosie — A Story of Messy Hair and Big Dreams</title>
+    <meta name="description"
+        content="A heartwarming storybook about a girl, her dog Rosie, and the beautiful chaos of growing up with intention.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Reading Progress -->
+    <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+
+    <!-- THE BOOK -->
+    <div id="app">
+        <div class="book-wrapper" id="book">
+
+            <!-- Right Page Edges -->
+            <div class="page-edges"></div>
+
+            <!-- LEATHERETTE COVER (Front) -->
+            <div class="page cover-page" id="p_cover">
+                <div class="page-face page-front cover-front">
+                    <div class="cover-border"></div>
+                    <div class="cover-illustration" style="background-image: url('assets/cover.png');"></div>
+                    <div class="gold-title">Molly &amp; Rosie</div>
+                    <div class="gold-subtitle">A Story of Messy Hair &amp; Big Dreams</div>
+                </div>
+                <div class="page-face page-back about-page">
+                    <div class="line-art top-right">
+                        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.2"
+                            stroke-linecap="round" stroke-linejoin="round" color="#5a4030">
+                            <path
+                                d="M40 15 C30 25, 20 35, 25 50 C28 58, 35 60, 40 55 C45 60, 52 58, 55 50 C60 35, 50 25, 40 15Z" />
+                            <path d="M35 38 C35 35, 38 33, 40 36" />
+                            <path d="M45 38 C45 35, 42 33, 40 36" />
+                            <circle cx="36" cy="40" r="1.5" />
+                            <circle cx="44" cy="40" r="1.5" />
+                        </svg>
+                    </div>
+                    <div class="line-art bottom-left">
+                        <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1"
+                            stroke-linecap="round" color="#5a4030">
+                            <path d="M10 60 Q20 30, 40 45 Q60 60, 70 35" />
+                            <path d="M25 55 Q30 40, 45 50" />
+                            <ellipse cx="40" cy="45" rx="3" ry="2" />
+                            <path d="M15 65 Q25 50, 35 58" />
+                        </svg>
+                    </div>
+                    <h2 style="margin-top: 60px;">For Every Girl<br>with Dirt on Her Knees<br>and Stars in Her Eyes</h2>
+                    <div class="chapter-divider" style="margin: 20px auto;"></div>
+                    <p>This is the mostly-true, slightly-embellished, completely heartwarming story of a girl who was
+                        born in a hurry, grew up in a whirlwind, and found her soul's companion on four furry legs.</p>
+                    <p style="margin-top: 20px; font-style: italic; opacity: 0.7;">Buckle up. She doesn't slow down.</p>
+                </div>
+            </div>
+
+            <!-- Story pages dynamically injected by app.js -->
+
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prev-btn">◀ Previous</button>
+        <button class="nav-btn" id="next-btn">Next ▶</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

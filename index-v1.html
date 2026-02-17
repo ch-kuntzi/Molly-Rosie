@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molly's Journey | A Life of Intention</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="watercolor-blob blob-1"
+        style="position: fixed; top: 0; left: 0; opacity: 0.1; width: 600px; height: 600px;"></div>
+    <div class="watercolor-blob blob-2"
+        style="position: fixed; bottom: 0; right: 0; opacity: 0.1; width: 600px; height: 600px;"></div>
+
+    <div class="progress-container"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0,0,0,0.05); z-index: 200;">
+        <div id="progress-bar" style="width: 0%; height: 100%; background: var(--accent-gold); transition: 0.3s;"></div>
+    </div>
+
+    <!-- SVG Filters for Watercolor/Rough Paper Effects -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true" focusable="false">
+        <filter id="rough-edge">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" />
+        </filter>
+        <filter id="watercolor-bleed">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+            <feComposite in="blur" in2="noise" operator="in" />
+            <feMerge>
+                <feMergeNode in="SourceGraphic" />
+                <feMergeNode />
+            </feMerge>
+        </filter>
+    </svg>
+
+    <div class="outline-panel" id="outline">
+        <h3>Story Outline</h3>
+        <ul id="outline-list">
+            <!-- Populated by JS -->
+        </ul>
+    </div>
+
+    <div id="app">
+        <div class="book" id="book">
+            <!-- Cover Page -->
+            <div class="page front-page" id="p_cover">
+                <div class="page-content right-page cover"
+                    style="background: var(--paper-color); border: 20px solid var(--sage-green);">
+                    <div class="watercolor-blob blob-1"></div>
+                    <div class="watercolor-blob blob-2" style="background: var(--accent-gold); opacity: 0.2;"></div>
+                    <div class="cover-illustration" id="illustration_cover"
+                        style="background: url('assets/cover.png'); background-size: cover; background-position: center;">
+                    </div>
+                    <h1 style="color: var(--text-color); margin-top: 20px;">Molly's Journey</h1>
+                    <p style="text-align: center; color: var(--text-color); font-style: italic;">The Weaver of Dreams
+                    </p>
+                    <div class="page-num">Cover</div>
+                </div>
+                <div class="page-content left-page page-back">
+                    <div class="watercolor-blob blob-3"></div>
+                    <h2 style="margin-top: 50px;">About the Author</h2>
+                    <p>Molly lives life with a compass in one hand and a dream in the other. Every choice is made with
+                        intention, and every hurdle is met with the strength of a gymnast and the heart of a healer.</p>
+                    <p>This is the story of her first 21 years—a tapestry woven with perseverance and purpose.</p>
+                </div>
+            </div>
+
+            <!-- Pages will be dynamically injected from storyChapters in app.js -->
+        </div>
+    </div>
+
+    <!-- More pages will be added via JS or templating in a full version, 
+                 but I will list the markers here and generate the JS logic for 20 pages. -->
+    </div>
+    </div>
+
+    <div class="nav-controls">
+        <button id="prevBtn">&larr; Previous</button>
+        <button id="outlineBtn">Outline</button>
+        <button id="nextBtn">Next &rarr;</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
