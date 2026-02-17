@@ -495,14 +495,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize resize logic
-    window.addEventListener('resize', resizeBook);
-    window.addEventListener('orientationchange', () => {
-        // Delay slightly for orientation change to settle
-        setTimeout(resizeBook, 100);
+    // Initialize resize logic with debouncing and multiple triggers
+    window.addEventListener('resize', () => {
+        requestAnimationFrame(resizeBook);
     });
+
+    window.addEventListener('orientationchange', () => {
+        // Fire immediately
+        resizeBook();
+        // Fire again after layout settles
+        setTimeout(resizeBook, 100);
+        setTimeout(resizeBook, 300);
+        setTimeout(resizeBook, 500);
+    });
+
     // Initial call
-    resizeBook();
+    setTimeout(resizeBook, 0);
+    setTimeout(resizeBook, 100);
 
     // ========================================
     // INITIALIZE

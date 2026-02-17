@@ -386,8 +386,10 @@ body::after {
     position: absolute;
     width: 100%;
     height: 100%;
+    /* Hardware acceleration and strict backface visibility for iOS */
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
     overflow: hidden;
     border-radius: 0 5px 5px 0;
     /* Solid background to prevent transparency issues */
@@ -397,6 +399,9 @@ body::after {
 /* Front of page (right-hand) */
 .page-front {
     background: var(--parchment);
+    transform: rotateY(0deg);
+    /* Explicitly set rotation */
+    z-index: 2;
     padding: 38px 42px 30px 46px;
     display: flex;
     flex-direction: column;
