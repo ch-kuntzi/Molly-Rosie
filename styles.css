@@ -173,60 +173,13 @@ body::after {
 /* ========================================
    RESPONSIVE SCALING — Auto-fit for mobile
    ======================================== */
-@media (max-width: 1100px) {
-    #app {
-        transform: scale(0.9);
-    }
-}
-
-@media (max-width: 1000px) {
-    #app {
-        transform: scale(0.85);
-    }
-
-    .nav-controls {
-        bottom: 15px;
-    }
-}
-
-@media (max-width: 900px) {
-    #app {
-        transform: scale(0.75);
-    }
-}
-
-@media (max-width: 800px) {
-    #app {
-        transform: scale(0.65);
-    }
-}
-
-@media (max-width: 700px) {
-    #app {
-        transform: scale(0.55);
-    }
-}
-
+/* ========================================
+   RESPONSIVE — Button adjustments
+   ======================================== */
 @media (max-width: 600px) {
-    #app {
-        transform: scale(0.45);
-    }
-}
-
-@media (max-width: 500px) {
-    #app {
-        transform: scale(0.38);
-    }
-
     .nav-btn {
         padding: 10px 24px;
         font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 400px) {
-    #app {
-        transform: scale(0.32);
     }
 }
 

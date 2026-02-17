@@ -383,19 +383,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function goNext() {
         if (currentPage < allPages.length) {
-            allPages[currentPage].classList.add('flipped');
-            currentPage++;
-            updateZIndex();
-            updateProgress();
+            const page = allPages[currentPage];
+
+            // Fix Bleed-through: Bring the moving page to the very top during transition
+            page.style.zIndex = 1000;
+
+            requestAnimationFrame(() => {
+                page.classList.add('flipped');
+
+                // Wait for transition to finish before settling z-index (0.8s = 800ms)
+                setTimeout(() => {
+                    currentPage++;
+                    updateZIndex();
+                    updateProgress();
+                }, 800);
+            });
         }
     }
 
     function goPrev() {
         if (currentPage > 0) {
-            currentPage--;
-            allPages[currentPage].classList.remove('flipped');
-            updateZIndex();
-            updateProgress();
+            const page = allPages[currentPage - 1];
+
+            // Fix Bleed-through: Bring the moving page to the very top during transition
+            page.style.zIndex = 1000;
+
+            requestAnimationFrame(() => {
+                page.classList.remove('flipped');
+
+                // Wait for transition to finish before settling z-index
+                setTimeout(() => {
+                    currentPage--;
+                    updateZIndex();
+                    updateProgress();
+                }, 800);
+            });
         }
     }
 
@@ -417,7 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide page-edges when all pages are flipped (book is fully read)
         const pageEdges = document.querySelector('.page-edges');
         if (pageEdges) {
-            pageEdges.style.opacity = currentPage >= allPages.length ? '0' : '1';
+            // Only hide edges if we are truly at the end
+            pageEdges.style.opacity = (currentPage >= allPages.length) ? '0' : '1';
             pageEdges.style.transition = 'opacity 0.4s ease';
         }
     }
@@ -433,6 +456,53 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goNext(); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
     });
+
+    // ========================================
+    // DYNAMIC RESIZING (Fixes Mobile Rotation)
+    // ========================================
+    function resizeBook() {
+        const basePageWidth = 500;
+        const baseHeight = 660;
+        // The book when open is 2 pages wide + some margin for the spine/shadows
+        const totalBaseWidth = (basePageWidth * 2) + 40;
+
+        // Available viewport size (with safety margin)
+        const padding = 20;
+        const availWidth = window.innerWidth - padding;
+        const availHeight = window.innerHeight - padding;
+
+        // Calculate scale needed to fit width and height
+        const scaleW = availWidth / totalBaseWidth;
+        const scaleH = availHeight / baseHeight;
+
+        // Use the smaller scale factor to ensure it fits entirely
+        let scale = Math.min(scaleW, scaleH);
+
+        // Cap the scale at 1.0 (don't enlarge on desktops) to preserve sharpness
+        if (scale > 1) scale = 1;
+
+        // Apply scale
+        book.parentElement.style.transform = `scale(${scale})`;
+
+        // Adjust nav controls position for very small screens if needed
+        const nav = document.querySelector('.nav-controls');
+        if (scale < 0.5) {
+            nav.style.bottom = '10px';
+            nav.style.gap = '10px';
+        } else {
+            nav.style.bottom = '28px';
+            nav.style.gap = '18px';
+        }
+    }
+
+    // Initialize resize logic
+    window.addEventListener('resize', resizeBook);
+    window.addEventListener('orientationchange', () => {
+        // Delay slightly for orientation change to settle
+        setTimeout(resizeBook, 100);
+    });
+    // Initial call
+    resizeBook();
 
     // ========================================
     // INITIALIZE
